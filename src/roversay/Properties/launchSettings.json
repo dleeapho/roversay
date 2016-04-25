@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "roversay": {
+      "commandName": "Project",
+      "commandLineArgs": "\"This is a really long line of text that has lots of characters and should wrap to many lines\""
+    }
+  }
+}
