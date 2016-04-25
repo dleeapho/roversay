@@ -1,7 +1,8 @@
-FROM debtest
+FROM microsoft/dotnet-preview
+
 RUN mkdir -p /dotnetapp
-COPY ./src/whalesay /dotnetapp
+COPY ./src/roversay /dotnetapp
 WORKDIR /dotnetapp
 RUN dotnet restore
 RUN dotnet build
-#ENTRYPOINT ["dotnet", "run"]
+
