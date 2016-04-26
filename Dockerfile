@@ -1,4 +1,4 @@
-FROM microsoft/dotnet-preview
+
 
 RUN mkdir -p /dotnetapp
 COPY ./src/roversay /dotnetapp
