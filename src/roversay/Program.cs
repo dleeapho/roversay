@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace roversay
 {
@@ -55,7 +55,7 @@ namespace roversay
 
     public class SayRenderer
     {
-        private RenderOptions _renderOptions { get; set; }
+        private RenderOptions RenderOptions { get; set; }
 
         public string SpeechContent { get; private set; }
 
@@ -63,7 +63,7 @@ namespace roversay
 
         public SayRenderer(string speechContent, RenderOptions renderOptions)
         {
-            _renderOptions = renderOptions;
+            this.RenderOptions = renderOptions;
             SpeechContent = speechContent;
             Builder = new List<string>();
         }
@@ -71,17 +71,17 @@ namespace roversay
         public string Render()
         {
             DrawSpeechBubble();
-            DrawRover();
+            DrawSayer(this.RenderOptions.FileToDraw);
 
             return null;
         }
 
         private void DrawSpeechBubble()
         {
-            var lineLength = _renderOptions.SpeechBalloonWidth - 4;
+            var lineLength = this.RenderOptions.SpeechBalloonWidth - 4;
             var output = SpeechContent.WrapText((int)lineLength).ToArray();
             var lines = output.Length;
-            var wrapperLineLength = (lines == 1 ? output.First().Length : (int)_renderOptions.SpeechBalloonWidth - 4) + 2;
+            var wrapperLineLength = (lines == 1 ? output.First().Length : (int)this.RenderOptions.SpeechBalloonWidth - 4) + 2;
 
             Builder.Add($" {'_'.NChar(wrapperLineLength)}");
             if (lines == 1)
@@ -106,24 +106,20 @@ namespace roversay
                         lineEndChar = '/';
                     }
 
-                    var neededPadding = (int)_renderOptions.SpeechBalloonWidth - 4 - output[i].Length;
+                    var neededPadding = (int)this.RenderOptions.SpeechBalloonWidth - 4 - output[i].Length;
                     Builder.Add($"{lineStartChar} {output[i]}{' '.NChar(neededPadding)} {lineEndChar}");
                 }
             }
             Builder.Add($" {'-'.NChar(wrapperLineLength)}");
-        }
-
-         private void DrawRover()
-        {
+            
             var leftPad = Builder.First().Length / 4;
 
             Builder.Add($@"{' '.NChar(leftPad)}    \");
             Builder.Add($@"{' '.NChar(leftPad)}     \");
             Builder.Add($@"{' '.NChar(leftPad)}      \");
-
-            DrawFromFile(Builder, "rover.txt");
         }
-        private void DrawFromFile(IList<string> builder, string filePath)
+
+        private void DrawSayer(string filePath)
         {
             try
             {
@@ -133,7 +129,7 @@ namespace roversay
                     {
                         while (sr.Peek() >= 0)
                         {
-                            builder.Add(sr.ReadLine());
+                            Builder.Add(sr.ReadLine());
                         }
                     }
                 }
@@ -159,21 +155,21 @@ namespace roversay
 
             foreach (var item in originalLines)
             {
-                //Size szText = TextRenderer.MeasureText(item, font);
-
                 actualWidth += item.Length + 1;
 
                 if (actualWidth > maxWidthInChars)
+                {
+                    actualLine.Append(item + " ");
+                }
+                else
                 {
                     wrappedLines.Add(actualLine.ToString());
                     actualLine.Clear();
                     actualLine.Append(item + " ");
                     actualWidth = actualLine.Length;
                 }
-                else
-                {
-                    actualLine.Append(item + " ");
-                }
+              
+  
             }
 
             if (actualLine.Length > 0)
