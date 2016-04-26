@@ -35,7 +35,7 @@ namespace roversay
             {
                 Console.WriteLine(line);
             }
-            Console.WriteLine();
+            Console.WriteLine(" ");
         }
     }
     public enum SayMode
@@ -150,30 +150,21 @@ namespace roversay
 
             List<string> wrappedLines = new List<string>();
 
-            StringBuilder actualLine = new StringBuilder();
-            int actualWidth = 0;
+            StringBuilder currentLine = new StringBuilder();
 
-            foreach (var item in originalLines)
+            foreach (var word in originalLines)
             {
-                actualWidth += item.Length + 1;
 
-                if (actualWidth > maxWidthInChars)
+                if ((currentLine.Length + word.Length) > maxWidthInChars)
                 {
-                    actualLine.Append(item + " ");
+                    wrappedLines.Add(currentLine.ToString().Trim());
+                    currentLine.Clear();
                 }
-                else
-                {
-                    wrappedLines.Add(actualLine.ToString());
-                    actualLine.Clear();
-                    actualLine.Append(item + " ");
-                    actualWidth = actualLine.Length;
-                }
-              
-  
+                currentLine.Append(word + " ");
             }
 
-            if (actualLine.Length > 0)
-                wrappedLines.Add(actualLine.ToString());
+            if (currentLine.Length > 0)
+                wrappedLines.Add(currentLine.ToString());
 
             return wrappedLines;
         }
