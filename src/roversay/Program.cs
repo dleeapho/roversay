@@ -11,13 +11,17 @@ namespace roversay
     {
         public static void Main(string[] args)
         {
-            var strContent = "";
+            string strContent = "";
             SayMode sayMode = SayMode.Regular;
             foreach (var arg in args)
             {
                 switch (arg)
                 {
-                      default:
+                    case "test":
+                        sayMode = SayMode.Test;
+                        strContent = "Testing, testing...";
+                        break;
+                    default:
                         strContent += $"{arg} ";
                         break;
                 }
@@ -40,7 +44,8 @@ namespace roversay
     }
     public enum SayMode
     {
-        Regular
+        Regular,
+        Test
     }
 
     public class RenderOptions
@@ -71,7 +76,8 @@ namespace roversay
         public string Render()
         {
             DrawSpeechBubble();
-            DrawSayer(this.RenderOptions.FileToDraw);
+            if (RenderOptions.SayMode != SayMode.Test)
+                DrawSayer(this.RenderOptions.FileToDraw);
 
             return null;
         }
