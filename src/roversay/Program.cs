@@ -17,7 +17,8 @@ namespace roversay
             {
                 switch (arg)
                 {
-                    case "test":
+                    case "-t":
+                    case "--t":
                         sayMode = SayMode.Test;
                         strContent = "Testing, testing...";
                         break;
