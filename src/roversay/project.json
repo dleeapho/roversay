@@ -1,16 +1,17 @@
 ﻿{
   "version": "1.0.0-*",
   "buildOptions": {
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "copyToOutput": "rover.txt"
   },
 
   "dependencies": {
     "Microsoft.NETCore.App": {
       "type": "platform",
-      "version": "1.0.0-rc2-3002533"
+      "version": "1.0.0-rc2-3002659"
     }
   },
-
+  
   "frameworks": {
     "netcoreapp1.0": {}
   }
