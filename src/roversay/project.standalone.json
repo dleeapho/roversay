@@ -1,0 +1,27 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "copyToOutput": "rover.txt"
+  },
+  
+  "publishOptions": {
+     "include": [
+        "rover.txt"
+    ]
+  },
+
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002659"
+    }
+  },
+  "runtimes": {
+    "win10-x64": { },
+    "debian.8-x64": { }  
+  },
+  
+  "frameworks": {
+    "netcoreapp1.0": {}
+  }
+}
