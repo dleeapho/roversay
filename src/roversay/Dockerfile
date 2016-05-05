@@ -1,8 +1,8 @@
-FROM msimons/dotnet:sharedframework
+FROM msimons/dotnet:slim
 
 RUN mkdir -p /dotnetapp
-COPY . /dotnetapp
+COPY ./bin/Debug/netcoreapp1.0/debian.8-x64/publish /dotnetapp
 WORKDIR /dotnetapp
-#RUN dotnet restore
-#RUN dotnet build
+ENTRYPOINT ["./roversay"]
+
 
